@@ -35,16 +35,16 @@ does not have yet (see [Changes vs. upstream](#changes-vs-upstream)).
 ## Installation
 
 ```sh
-ya pkg add Geronfir/bifold
+ya pkg add Geronfir/Bifold
 ```
 
 or manually:
 
 ```sh
 # Windows
-git clone https://github.com/Geronfir/bifold.yazi %AppData%\yazi\config\plugins\bifold.yazi
+git clone https://github.com/Geronfir/Bifold.yazi %AppData%\yazi\config\plugins\bifold.yazi
 # Linux/macOS
-git clone https://github.com/Geronfir/bifold.yazi ~/.config/yazi/plugins/bifold.yazi
+git clone https://github.com/Geronfir/Bifold.yazi ~/.config/yazi/plugins/bifold.yazi
 ```
 
 ## Configuration
