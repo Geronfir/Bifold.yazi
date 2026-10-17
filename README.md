@@ -35,8 +35,11 @@ does not have yet (see [Changes vs. upstream](#changes-vs-upstream)).
 ## Installation
 
 ```sh
-ya pkg add Geronfir/Bifold
+ya pkg add Geronfir/bifold
 ```
+
+> `ya pkg` requires the owner/name slug in kebab-case, so the install slug is
+> lowercase even though the repository is `Geronfir/Bifold`.
 
 or manually:
 
