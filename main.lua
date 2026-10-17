@@ -303,19 +303,19 @@ local function deactivate()
     ui.render()
 end
 
-local function spl_activate()
+local function bf_activate()
     activate()
 end
 
-local function spl_deactivate()
+local function bf_deactivate()
     deactivate()
 end
 
-local function spl_toggle()
+local function bf_toggle()
     if dp then deactivate() else activate() end
 end
 
-local function spl_preview()
+local function bf_preview()
     if not dp then return end
     dp.preview = not dp.preview
     ui.render()
@@ -327,7 +327,7 @@ local function spl_preview()
     end
 end
 
-local function spl_switch_tab()
+local function bf_switch_tab()
     if not dp then return end
     ya.emit("tab_switch", { dp.tabs[other_pane()] - 1 })
     ui.render()
@@ -335,7 +335,7 @@ end
 
 -- Apply a file operation to the selection (or the hovered file) and send it
 -- to the other pane.
-local function spl_transfer(operation)
+local function bf_transfer(operation)
     if not dp then return end
 
     local source = cx.active
@@ -366,7 +366,7 @@ local function spl_transfer(operation)
 end
 
 -- Toggle the split direction between side-by-side ("h") and stacked ("v").
-local function spl_flip()
+local function bf_flip()
     if not dp then return end
     dp.orientation = dp.orientation == "v" and "h" or "v"
     ui.render()
@@ -374,43 +374,43 @@ end
 
 -- Grow/shrink the focused pane by `step` percent, clamped to 10-90 so that
 -- neither pane can collapse to zero width or height.
-local function spl_resize(step)
+local function bf_resize(step)
     if not dp then return end
     if active_pane() == 2 then step = -step end
     dp.ratio = math.min(90, math.max(10, dp.ratio + step))
     ui.render()
 end
 
-local function spl_copy()
-    spl_transfer("copy")
+local function bf_copy()
+    bf_transfer("copy")
 end
 
-local function spl_move()
-    spl_transfer("move")
+local function bf_move()
+    bf_transfer("move")
 end
 
 local function entry(st, job)
     job = type(job) == "string" and { args = { job } } or job
     local act = job and job.args and job.args[1]
 
-    if act == "spl_activate" then
-        spl_activate()
-    elseif act == "spl_deactivate" then
-        spl_deactivate()
-    elseif act == "spl_toggle" then
-        spl_toggle()
-    elseif act == "spl_switch_tab" then
-        spl_switch_tab()
-    elseif act == "spl_flip" then
-        spl_flip()
-    elseif act == "spl_resize" then
-        spl_resize(tonumber(job.args[2]) or 5)
-    elseif act == "spl_copy" then
-        spl_copy()
-    elseif act == "spl_move" then
-        spl_move()
-    elseif act == "spl_preview" then
-        spl_preview()
+    if act == "bf_activate" then
+        bf_activate()
+    elseif act == "bf_deactivate" then
+        bf_deactivate()
+    elseif act == "bf_toggle" then
+        bf_toggle()
+    elseif act == "bf_switch_tab" then
+        bf_switch_tab()
+    elseif act == "bf_flip" then
+        bf_flip()
+    elseif act == "bf_resize" then
+        bf_resize(tonumber(job.args[2]) or 5)
+    elseif act == "bf_copy" then
+        bf_copy()
+    elseif act == "bf_move" then
+        bf_move()
+    elseif act == "bf_preview" then
+        bf_preview()
     end
 end
 

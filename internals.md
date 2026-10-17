@@ -1,4 +1,4 @@
-# split-tabs.yazi — Internals
+# bifold.yazi — Internals
 
 This document describes the architecture and design decisions of the plugin, along with the relevant yazi framework internals that make it work.
 

@@ -1,11 +1,15 @@
-# split-tabs-vertical.yazi
+# bifold.yazi
 
 <p align="center">
     <img src="media/screenshot.png" width="70%"/>
 </p>
 
-A [Yazi](https://github.com/sxyazi/yazi) plugin that provides a dual-pane view by
-splitting the screen between two tabs — **side-by-side or stacked top/bottom**.
+A [Yazi](https://github.com/sxyazi/yazi) plugin that gives you a **dual-pane**
+file manager inside Yazi by splitting the screen between two tabs — and lets you
+**flip the split between side-by-side and stacked top/bottom** at runtime.
+
+> **bifold** = *bi-* (two) + *-fold* (panes that fold either way). The name covers
+> both orientations; "vertical" only described one of them.
 
 This is a fork of [terrakok/split-tabs.yazi](https://github.com/terrakok/split-tabs.yazi)
 (MIT, © 2026 Konstantin Tskhovrebov). It keeps upstream's dual-pane core and adds
@@ -16,9 +20,9 @@ does not have yet (see [Changes vs. upstream](#changes-vs-upstream)).
 - Toggle dual-pane mode
 - Switch focus between panes
 - Toggle a full-width preview panel at the bottom
-- **Flip orientation**: side-by-side ↔ top-bottom (`spl_flip`)
-- **Resize panes**: `spl_resize ±n`, clamped to 10–90%
-- Copy or move the selection straight into the other pane (`spl_copy`, `spl_move`)
+- **Flip orientation**: side-by-side ↔ top-bottom (`bf_flip`)
+- **Resize panes**: `bf_resize ±n`, clamped to 10–90%
+- Copy or move the selection straight into the other pane (`bf_copy`, `bf_move`)
 
 ## Requirements
 - **Yazi 26.8.15 or newer.** The plugin subscribes to the `ind-watch` and
@@ -31,16 +35,16 @@ does not have yet (see [Changes vs. upstream](#changes-vs-upstream)).
 ## Installation
 
 ```sh
-ya pkg add Geronfir/split-tabs-vertical
+ya pkg add Geronfir/bifold
 ```
 
 or manually:
 
 ```sh
 # Windows
-git clone https://github.com/Geronfir/split-tabs-vertical.yazi %AppData%\yazi\config\plugins\split-tabs-vertical.yazi
+git clone https://github.com/Geronfir/bifold.yazi %AppData%\yazi\config\plugins\bifold.yazi
 # Linux/macOS
-git clone https://github.com/Geronfir/split-tabs-vertical.yazi ~/.config/yazi/plugins/split-tabs-vertical.yazi
+git clone https://github.com/Geronfir/bifold.yazi ~/.config/yazi/plugins/bifold.yazi
 ```
 
 ## Configuration
@@ -49,14 +53,14 @@ Add this to your `keymap.toml`:
 ```toml
 [mgr]
 prepend_keymap = [
-    { on = "\\", run = "plugin split-tabs-vertical spl_toggle", desc = "Split-tabs: toggle split tabs mode" },
-    { on = "<Tab>", run = "plugin split-tabs-vertical spl_switch_tab", desc = "Split-tabs: switch to the other pane" },
-    { on = "<F5>", run = [ "escape --visual", "plugin split-tabs-vertical spl_copy" ], desc = "Split-tabs: copy to the other pane" },
-    { on = "<F6>", run = [ "escape --visual", "plugin split-tabs-vertical spl_move" ], desc = "Split-tabs: move to the other pane" },
-    { on = "b", run = "plugin split-tabs-vertical spl_preview", desc = "Split-tabs: toggle preview pane" },
-    { on = "F", run = "plugin split-tabs-vertical spl_flip", desc = "Split-tabs: flip side-by-side/top-bottom" },
-    { on = "<C-Left>", run = "plugin split-tabs-vertical spl_resize -5", desc = "Split-tabs: shrink active pane" },
-    { on = "<C-Right>", run = "plugin split-tabs-vertical spl_resize 5", desc = "Split-tabs: grow active pane" },
+    { on = "\\", run = "plugin bifold bf_toggle", desc = "Bifold: toggle split tabs mode" },
+    { on = "<Tab>", run = "plugin bifold bf_switch_tab", desc = "Bifold: switch to the other pane" },
+    { on = "<F5>", run = [ "escape --visual", "plugin bifold bf_copy" ], desc = "Bifold: copy to the other pane" },
+    { on = "<F6>", run = [ "escape --visual", "plugin bifold bf_move" ], desc = "Bifold: move to the other pane" },
+    { on = "b", run = "plugin bifold bf_preview", desc = "Bifold: toggle preview pane" },
+    { on = "F", run = "plugin bifold bf_flip", desc = "Bifold: flip side-by-side/top-bottom" },
+    { on = "<C-Left>", run = "plugin bifold bf_resize -5", desc = "Bifold: shrink active pane" },
+    { on = "<C-Right>", run = "plugin bifold bf_resize 5", desc = "Bifold: grow active pane" },
     ...
 ]
 ```
@@ -65,23 +69,23 @@ prepend_keymap = [
 
 | Action | Arguments | Description |
 | --- | --- | --- |
-| `spl_toggle` | – | Toggle dual-pane mode on/off. |
-| `spl_activate` | – | Enter dual-pane mode (idempotent). |
-| `spl_deactivate` | – | Leave dual-pane mode and close the second tab. |
-| `spl_switch_tab` | – | Move focus to the other pane. |
-| `spl_flip` | – | Flip between side-by-side and stacked layouts. |
-| `spl_resize` | `±n` (default `5`) | Grow/shrink the focused pane by `n` percent; clamped to 10–90. |
-| `spl_preview` | – | Toggle the full-width preview panel at the bottom. |
-| `spl_copy` | – | Copy the selection (or hovered file) to the other pane. |
-| `spl_move` | – | Move the selection (or hovered file) to the other pane. |
+| `bf_toggle` | – | Toggle dual-pane mode on/off. |
+| `bf_activate` | – | Enter dual-pane mode (idempotent). |
+| `bf_deactivate` | – | Leave dual-pane mode and close the second tab. |
+| `bf_switch_tab` | – | Move focus to the other pane. |
+| `bf_flip` | – | Flip between side-by-side and stacked layouts. |
+| `bf_resize` | `±n` (default `5`) | Grow/shrink the focused pane by `n` percent; clamped to 10–90. |
+| `bf_preview` | – | Toggle the full-width preview panel at the bottom. |
+| `bf_copy` | – | Copy the selection (or hovered file) to the other pane. |
+| `bf_move` | – | Move the selection (or hovered file) to the other pane. |
 
 ### Activate on startup
 
-The plugin also exposes the idempotent `spl_activate` action. Add this to
+The plugin also exposes the idempotent `bf_activate` action. Add this to
 `~/.config/yazi/init.lua` (create the file if it does not exist):
 
 ```lua
-ya.emit("plugin", { "split-tabs-vertical", "spl_activate" })
+ya.emit("plugin", { "bifold", "bf_activate" })
 ```
 
 ## Keybinding notes
@@ -112,8 +116,8 @@ Bug fixes (all still present in upstream `main` at the time of writing):
 
 New features:
 
-- `spl_flip` — switch between side-by-side and top-bottom layouts.
-- `spl_resize ±n` — resize the focused pane, clamped to 10–90%.
+- `bf_flip` — switch between side-by-side and top-bottom layouts.
+- `bf_resize ±n` — resize the focused pane, clamped to 10–90%.
 
 ## Portability
 
@@ -136,7 +140,7 @@ other targets.
 ## Known limitations
 - The second tab is closed on deactivate; navigation done in the right pane while
   split is discarded.
-- `spl_resize` clamps to 10–90%, so a pane can never be fully collapsed.
+- `bf_resize` clamps to 10–90%, so a pane can never be fully collapsed.
 - The plugin swaps `Tab.layout`, `Tab.build`, `Header.cwd`, `Tabs.height` and
   `Entity.style` while active, and restores them on deactivate. Other plugins
   that patch the same components may conflict.
